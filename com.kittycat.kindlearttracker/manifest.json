@@ -1,0 +1,13 @@
+{
+  "minVersion": 2,
+  "manifestVersion": 2,
+  "appVersion": "v1.0.0",
+  "waf": true,
+  "id": "com.kittycat.kindlearttracker",
+  "name": "Kindle Art Tracker",
+  "author": "KittyCat",
+  "description": "A way for me to keep track of artwork!",
+  "repo": "https://github.com/AlanikREDAWN/kindle-art-tracker",
+  "icon": "icon.png",
+  "entrypoint": "index.html"
+}
