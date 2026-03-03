@@ -4,3 +4,42 @@
     font-family: WinterDraw;
     src: url(./fonts/WinterDraw-ZprDK.ttf);
 }
+
+body {
+    margin: 0px;
+    padding: 0px;
+    -webkit-filter: grayscale(100%);
+    filter: grayscale();
+
+}
+
+h1 {
+    font-family: WinterDraw;
+    font-size: 64px;
+    text-align: center;
+    margin-top: 27px;
+    margin-bottom: 8px;
+}
+
+h2 {
+    font-family: Sour Gummy;
+    font-size: 24px;
+    text-align: center;
+    font-weight: 800;
+    margin-bottom: 0;
+}
+
+.back {
+    display: block;
+    margin: auto;
+    margin-top: 20px;
+    font-family: Sour Gummy;
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+    padding: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border: solid 5px black;
+    background-color: white;
+}
