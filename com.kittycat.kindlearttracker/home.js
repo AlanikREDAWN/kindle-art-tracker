@@ -92,5 +92,7 @@ function handleCardClick(event) {
             status: status,
             deadline: deadline
         }));
+        
+        window.location.href = 'edit.html';
     }
 }
