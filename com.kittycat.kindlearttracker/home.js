@@ -31,16 +31,38 @@ async function loadCards() {
 
         result.data.results.forEach(result => {
             console.log(result)
-            wrapper.innerHTML += `
-                <div class="card">
+            
+            const card = document.createElement('div');
+            card.classList.add('card');
+
+            card.dataset.artwork_name = result.artwork_name;
+            card.dataset.who_is_it_for = result.who_is_it_for;
+            card.dataset.status = result.status;
+            card.dataset.deadline = result.deadline;
+
+            card.innerHTML += `
                 <h2>${result.artwork_name}</h2>
                 <h3>who is it for?</h3>
                 <h4>${result.who_is_it_for}</h4>
                 <h3>Status: ${result.status}</h3>
                 <h3>Deadline: ${result.deadline}</h3>
-            </div>`
+            `;
+            wrapper.appendChild(card);
+
+            wrapper.addEventListener('click', handleCardClick);
+
             numRows += 1
             document.documentElement.style.setProperty("--rowNum", numRows)
+
+            // wrapper.innerHTML += `
+            //     <div class="card">
+            //     <h2>${result.artwork_name}</h2>
+            //     <h3>who is it for?</h3>
+            //     <h4>${result.who_is_it_for}</h4>
+            //     <h3>Status: ${result.status}</h3>
+            //     <h3>Deadline: ${result.deadline}</h3>
+            // </div>`
+
         })
 
         // console.log(results.data.results)
@@ -49,4 +71,26 @@ async function loadCards() {
     }
 
 
+}
+
+// card.dataset.artwork_name = result.artwork_name;
+// card.dataset.who_is_it_for = result.who_is_it_for;
+// card.dataset.status = result.status;
+// card.dataset.deadline = result.deadline;
+
+function handleCardClick(event) {
+    const clickedCard = event.target.closest('.card');
+    if (clickedCard) {
+        const artwork_name = clickedCard.dataset.artwork_name;
+        const who_is_it_for = clickedCard.dataset.who_is_it_for;
+        const status = clickedCard.dataset.status;
+        const deadline = clickedCard.dataset.deadline;
+
+        localStorage.setItem('selectedCard', JSON.stringify({
+            artwork_name: artwork_name,
+            who_is_it_for: who_is_it_for,
+            status: status,
+            deadline: deadline
+        }));
+    }
 }

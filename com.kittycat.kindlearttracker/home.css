@@ -66,6 +66,10 @@ h4 {
     /* min-width: 250px; */
 }
 
+.edit-card {
+    all: unset;
+}
+
 .wrapper {
     box-sizing: border-box;
     margin-left: 40px;
