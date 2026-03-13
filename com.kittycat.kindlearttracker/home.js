@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 async function loadCards() {
-    const url = "http://localhost:8787/get-data";
+    const url = "https://notion-kindle-api-wrapper.lilia.rocks/get-data";
     try {
         const response = await fetch(url, {
             method: "GET"

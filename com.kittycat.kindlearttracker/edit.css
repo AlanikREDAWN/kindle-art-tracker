@@ -29,6 +29,14 @@ h2 {
     margin-bottom: 0;
 }
 
+h3 {
+    font-family: Sour Gummy;
+    font-size: 18px;
+    text-align: center;
+    font-weight: 800;
+    margin-bottom: 0;
+}
+
 button {
     display: block;
     margin: auto;
@@ -42,4 +50,38 @@ button {
     padding-right: 15px;
     border: solid 5px black;
     background-color: white;
+}
+
+form {
+    /* display: flex;
+    flex-direction: column;
+    gap: 5px; */
+    font-family: Sour Gummy;
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+}
+
+/* input {
+    display: flex;
+    flex-direction: column;
+} */
+
+.group {
+    display: flex;
+    align-items: center;
+    margin: 10px;
+}
+
+.group label {
+    margin-right: 10px;
+}
+
+.group input {
+    flex: 1;
+    padding: 10px
+}
+
+.radio {
+    margin: 7px;
 }
