@@ -1,8 +1,11 @@
-function displayDetails() {
-	const editWrapper = document.querySelector(".editWrapper");
+async function displayDetails() {
+	var editWrapper = document.querySelector(".editWrapper");
 
-	const selectedCardString = localStorage.getItem("selectedCard");
+    // var selectedCard = await getItemAsync('selectedCard');
 
+	// const selectedCardString = localStorage.getItem("selectedCard");
+    const selectedCardString = getCookie("selectedCard");
+	// if (selectedCard) {
 	if (selectedCardString) {
 		const selectedCard = JSON.parse(selectedCardString);
 		editWrapper.innerHTML = `
@@ -14,15 +17,10 @@ function displayDetails() {
 
         <button class="edit">edit</button>
         `;
-
-		// <button class="artwork-name">edit artwork name</button>
-		// <button class="who-is-it-for">edit who it is for</button>
-		// <button class="status">edit status</button>
-		// <button class="edit-deadline">edit deadline</button>
-		const back = document.querySelector(".back");
+		var back = document.querySelector(".back");
 		back.addEventListener("click", handleBack);
 
-		const edit = document.querySelector(".edit");
+		var edit = document.querySelector(".edit");
 		edit.addEventListener("click", editInfo);
 	} else {
 		editWrapper.innerHTML = `
@@ -32,14 +30,14 @@ function displayDetails() {
 }
 
 async function editInfo() {
-	const edit = document.querySelector(".edit");
+	var edit = document.querySelector(".edit");
 	edit.disabled = true;
-	const editWrapper = document.querySelector(".editWrapper");
-	const password = localStorage.getItem("password");
-	let selectedCardString = localStorage.getItem("selectedCard");
-	let selectedCard = JSON.parse(selectedCardString);
+	var editWrapper = document.querySelector(".editWrapper");
+	var password = localStorage.getItem("password");
+	var selectedCardString = localStorage.getItem("selectedCard");
+	var selectedCard = JSON.parse(selectedCardString);
 
-	const url = "https://notion-kindle-api-wrapper.lilia.rocks/verify-password";
+	var url = "https://notion-kindle-api-wrapper.lilia.rocks/verify-password";
 	try {
 		const response = await fetch(url, {
 			method: "POST",
@@ -54,7 +52,7 @@ async function editInfo() {
 			throw new Error(`Response status: ${response.status}`);
 		}
 
-		const result = await response.json();
+		var result = await response.json();
 		console.log(result);
 
 		if (result.success == true) {
@@ -62,16 +60,16 @@ async function editInfo() {
 				document.querySelector(".message").remove();
 			}
 
-			const form = document.createElement("form");
+			var form = document.createElement("form");
 			form.classList.add("editForm");
 
-			const artworkName = document.createElement("div");
+			var artworkName = document.createElement("div");
 			artworkName.classList.add("group");
 
-			const artworkNameLabel = document.createElement("label");
+			var artworkNameLabel = document.createElement("label");
 			artworkNameLabel.textContent = "Artwork Name: ";
 			artworkNameLabel.htmlFor = "artwork_name";
-			const artworkNameInput = document.createElement("input");
+			var artworkNameInput = document.createElement("input");
 			artworkNameInput.type = "text";
 			artworkNameInput.name = "artwork_name";
 			artworkNameInput.id = "artwork_name";
@@ -81,13 +79,13 @@ async function editInfo() {
 			artworkName.appendChild(artworkNameLabel);
 			artworkName.appendChild(artworkNameInput);
 
-			const whoIsItFor = document.createElement("div");
+			var whoIsItFor = document.createElement("div");
 			whoIsItFor.classList.add("group");
 
-			const whoIsItForLabel = document.createElement("label");
+			var whoIsItForLabel = document.createElement("label");
 			whoIsItForLabel.textContent = "Who is it for? ";
 			whoIsItForLabel.htmlFor = "who_is_it_for";
-			const whoIsItForInput = document.createElement("input");
+			var whoIsItForInput = document.createElement("input");
 			whoIsItForInput.type = "text";
 			whoIsItForInput.name = "who_is_it_for";
 			whoIsItForInput.id = "who_is_it_for";
@@ -97,76 +95,76 @@ async function editInfo() {
 			whoIsItFor.appendChild(whoIsItForLabel);
 			whoIsItFor.appendChild(whoIsItForInput);
 
-			const completed = document.createElement("div");
+			var completed = document.createElement("div");
 			completed.classList.add("radio");
 
-			const completedInput = document.createElement("input");
+			var completedInput = document.createElement("input");
 			completedInput.type = "radio";
 			completedInput.name = "status";
 			completedInput.id = "completed";
 			completedInput.value = "Completed";
 			// completedInput.checked = true;
-			const completedLabel = document.createElement("label");
+			var completedLabel = document.createElement("label");
 			completedLabel.textContent = "Completed";
 			completedLabel.htmlFor = "completed";
 
 			completed.appendChild(completedInput);
 			completed.appendChild(completedLabel);
 
-			const inProgress = document.createElement("div");
+			var inProgress = document.createElement("div");
 			inProgress.classList.add("radio");
 
-			const inProgressInput = document.createElement("input");
+			var inProgressInput = document.createElement("input");
 			inProgressInput.type = "radio";
 			inProgressInput.name = "status";
 			inProgressInput.id = "inProgress";
 			inProgressInput.value = "In-Progress";
-			const inProgressLabel = document.createElement("label");
+			var inProgressLabel = document.createElement("label");
 			inProgressLabel.textContent = "In-Progress";
 			inProgressLabel.htmlFor = "inProgress";
 
 			inProgress.appendChild(inProgressInput);
 			inProgress.appendChild(inProgressLabel);
 
-			const inQueue = document.createElement("div");
+			var inQueue = document.createElement("div");
 			inQueue.classList.add("radio");
 
-			const inQueueInput = document.createElement("input");
+			var inQueueInput = document.createElement("input");
 			inQueueInput.type = "radio";
 			inQueueInput.name = "status";
 			inQueueInput.id = "inQueue";
 			inQueueInput.value = "In-Queue";
-			const inQueueLabel = document.createElement("label");
+			var inQueueLabel = document.createElement("label");
 			inQueueLabel.textContent = "In-Queue";
 			inQueueLabel.htmlFor = "inQueue";
 
 			inQueue.appendChild(inQueueInput);
 			inQueue.appendChild(inQueueLabel);
 
-			const notStarted = document.createElement("div");
+			var notStarted = document.createElement("div");
 			notStarted.classList.add("radio");
 
-			const notStartedInput = document.createElement("input");
+			var notStartedInput = document.createElement("input");
 			notStartedInput.type = "radio";
 			notStartedInput.name = "status";
 			notStartedInput.id = "notStarted";
 			notStartedInput.value = "Not-Started";
-			const notStartedLabel = document.createElement("label");
+			var notStartedLabel = document.createElement("label");
 			notStartedLabel.textContent = "Not-Started";
 			notStartedLabel.htmlFor = "notStarted";
 
 			notStarted.appendChild(notStartedInput);
 			notStarted.appendChild(notStartedLabel);
 
-			const waitlist = document.createElement("div");
+			var waitlist = document.createElement("div");
 			waitlist.classList.add("radio");
 
-			const waitlistInput = document.createElement("input");
+			var waitlistInput = document.createElement("input");
 			waitlistInput.type = "radio";
 			waitlistInput.name = "status";
 			waitlistInput.id = "waitlist";
 			waitlistInput.value = "Waitlist";
-			const waitlistLabel = document.createElement("label");
+			var waitlistLabel = document.createElement("label");
 			waitlistLabel.textContent = "Waitlist";
 			waitlistLabel.htmlFor = "waitlist";
 
@@ -205,13 +203,13 @@ async function editInfo() {
 				waitlistInput.checked = true;
 			}
 
-			const deadline = document.createElement("div");
+			var deadline = document.createElement("div");
 			deadline.classList.add("group");
 
-			const deadlineLabel = document.createElement("label");
+			var deadlineLabel = document.createElement("label");
 			deadlineLabel.textContent = "Deadline: ";
 			deadlineLabel.htmlFor = "deadline";
-			const deadlineInput = document.createElement("input");
+			var deadlineInput = document.createElement("input");
 			deadlineInput.type = "date";
 			deadlineInput.name = "deadline";
 			deadlineInput.id = "deadline";
@@ -221,7 +219,7 @@ async function editInfo() {
 			deadline.appendChild(deadlineLabel);
 			deadline.appendChild(deadlineInput);
 
-			const submit = document.createElement("button");
+			var submit = document.createElement("button");
 			submit.type = "submit";
 			submit.textContent = "Submit";
 
@@ -259,22 +257,22 @@ async function editInfo() {
 					document.querySelector(".editForm").remove();
 				}
 
-				let change = false;
+				var change = false;
 
-				const artworkNameField = form.elements["artwork_name"];
-				const artworkNameValue = artworkNameField.value;
+				var artworkNameField = form.elements["artwork_name"];
+				var artworkNameValue = artworkNameField.value;
 				console.log(artworkNameValue);
 
-				const whoIsItForField = form.elements["who_is_it_for"];
-				const whoIsItForValue = whoIsItForField.value;
+				var whoIsItForField = form.elements["who_is_it_for"];
+				var whoIsItForValue = whoIsItForField.value;
 				console.log(whoIsItForValue);
 
-				const statusField = form.elements["status"];
-				const statusValue = statusField.value;
+				var statusField = form.elements["status"];
+				var statusValue = statusField.value;
 				console.log(statusValue);
 
-				const deadlineField = form.elements["deadline"];
-				const deadlineValue = deadlineField.value;
+				var deadlineField = form.elements["deadline"];
+				var deadlineValue = deadlineField.value;
 				console.log(deadlineValue);
 
 				// await localStorage.setItem(
@@ -286,7 +284,7 @@ async function editInfo() {
 				// 		deadline: deadlineValue,
 				// 	}),
 				// );
-				let label = false;
+				var label = false;
 
 				// const completedLabel = document.createElement("label");
 				// completedLabel.textContent = "Completed";
@@ -294,7 +292,7 @@ async function editInfo() {
 
 				if (selectedCard.artwork_name != artworkNameValue) {
 					if (!label) {
-						const waitLabel = document.createElement("h1");
+						var waitLabel = document.createElement("h1");
 						waitLabel.textContent = "Please wait...";
 						editWrapper.appendChild(waitLabel);
 						label = true;
@@ -310,11 +308,11 @@ async function editInfo() {
 					// );
 					console.log("artwork name was changed");
 					await editName(password, selectedCard, artworkNameValue);
-					const artworkLabel = document.createElement("h3");
+					var artworkLabel = document.createElement("h3");
 					artworkLabel.textContent = "artwork_name updated";
 					editWrapper.appendChild(artworkLabel);
 					change = true;
-					localStorage.setItem(
+					setCookie(
 						"selectedCard",
 						JSON.stringify({
 							artwork_name: artworkNameValue,
@@ -323,16 +321,15 @@ async function editInfo() {
 							deadline: selectedCard.deadline,
 						}),
 					);
-					selectedCardString = localStorage.getItem("selectedCard");
+					selectedCardString = getCookie("selectedCard");
 					selectedCard = JSON.parse(selectedCardString);
 					console.log("localStorage artwork_name updated");
-
 				}
 				// delay(1500)
 
 				if (selectedCard.who_is_it_for != whoIsItForValue) {
 					if (!label) {
-						const waitLabel = document.createElement("h1");
+						var waitLabel = document.createElement("h1");
 						waitLabel.textContent = "Please wait...";
 						editWrapper.appendChild(waitLabel);
 						label = true;
@@ -348,11 +345,11 @@ async function editInfo() {
 					// );
 					console.log("who is it for was changed");
 					await editFor(password, selectedCard, whoIsItForValue);
-					const forLabel = document.createElement("h3");
+					var forLabel = document.createElement("h3");
 					forLabel.textContent = "who_is_it_for updated";
 					editWrapper.appendChild(forLabel);
 					change = true;
-					localStorage.setItem(
+					setCookie(
 						"selectedCard",
 						JSON.stringify({
 							artwork_name: selectedCard.artwork_name,
@@ -361,25 +358,25 @@ async function editInfo() {
 							deadline: selectedCard.deadline,
 						}),
 					);
-					selectedCardString = localStorage.getItem("selectedCard");
+					selectedCardString = getCookie("selectedCard");
 					selectedCard = JSON.parse(selectedCardString);
 					console.log("localStorage who_is_it_for updated");
 				}
 
 				if (selectedCard.status != statusValue) {
 					if (!label) {
-						const waitLabel = document.createElement("h1");
+						var waitLabel = document.createElement("h1");
 						waitLabel.textContent = "Please wait...";
 						editWrapper.appendChild(waitLabel);
 						label = true;
 					}
 					console.log("status was changed");
 					await editStatus(password, selectedCard, statusValue);
-					const statusLabel = document.createElement("h3");
+					var statusLabel = document.createElement("h3");
 					statusLabel.textContent = "status updated";
 					editWrapper.appendChild(statusLabel);
 					change = true;
-					localStorage.setItem(
+					setCookie(
 						"selectedCard",
 						JSON.stringify({
 							artwork_name: selectedCard.artwork_name,
@@ -388,7 +385,7 @@ async function editInfo() {
 							deadline: selectedCard.deadline,
 						}),
 					);
-					selectedCardString = localStorage.getItem("selectedCard");
+					selectedCardString = getCookie("selectedCard");
 					selectedCard = JSON.parse(selectedCardString);
 					console.log("localStorage status updated");
 				}
@@ -402,11 +399,11 @@ async function editInfo() {
 					}
 					console.log("deadline was changed");
 					await editDeadline(password, selectedCard, deadlineValue);
-					const deadlineLabel = document.createElement("h3");
+					var deadlineLabel = document.createElement("h3");
 					deadlineLabel.textContent = "deadline updated";
 					editWrapper.appendChild(deadlineLabel);
 					change = true;
-					localStorage.setItem(
+					setCookie(
 						"selectedCard",
 						JSON.stringify({
 							artwork_name: selectedCard.artwork_name,
@@ -415,7 +412,7 @@ async function editInfo() {
 							deadline: deadlineValue,
 						}),
 					);
-					selectedCardString = localStorage.getItem("selectedCard");
+					selectedCardString = getCookie("selectedCard");
 					selectedCard = JSON.parse(selectedCardString);
 					console.log("localStorage deadline updated");
 				}
@@ -425,7 +422,7 @@ async function editInfo() {
 				// }
 
 				if (change) {
-					localStorage.setItem(
+					setCookie(
 						"selectedCard",
 						JSON.stringify({
 							artwork_name: artworkNameValue,
@@ -447,7 +444,7 @@ async function editInfo() {
 				document.querySelector(".editForm").remove();
 			}
 
-			const message = document.createElement("h1");
+			var message = document.createElement("h1");
 			message.textContent = "You do not have edit access";
 			message.classList.add("message");
 
@@ -464,13 +461,13 @@ function handleBack() {
 }
 
 function updateInfo(event) {
-	const data = new FormData(event.target);
+	var data = new FormData(event.target);
 
 	console.log(data);
 }
 
 async function editName(password, selectedCard, artworkNameValue) {
-	const url = "https://notion-kindle-api-wrapper.lilia.rocks/edit-name";
+	var url = "https://notion-kindle-api-wrapper.lilia.rocks/edit-name";
 	try {
 		const response = await fetch(url, {
 			method: "POST",
@@ -502,7 +499,7 @@ async function editName(password, selectedCard, artworkNameValue) {
 }
 
 async function editFor(password, selectedCard, whoIsItForValue) {
-	const url = "https://notion-kindle-api-wrapper.lilia.rocks/edit-for";
+	var url = "https://notion-kindle-api-wrapper.lilia.rocks/edit-for";
 	// console.log(selectedCard.artwork_name)
 	try {
 		const response = await fetch(url, {
@@ -526,7 +523,7 @@ async function editFor(password, selectedCard, whoIsItForValue) {
 }
 
 async function editStatus(password, selectedCard, statusValue) {
-	const url = "https://notion-kindle-api-wrapper.lilia.rocks/edit-status";
+	var url = "https://notion-kindle-api-wrapper.lilia.rocks/edit-status";
 	try {
 		const response = await fetch(url, {
 			method: "POST",
@@ -548,7 +545,7 @@ async function editStatus(password, selectedCard, statusValue) {
 }
 
 async function editDeadline(password, selectedCard, deadlineValue) {
-	const url = "https://notion-kindle-api-wrapper.lilia.rocks/edit-deadline";
+	var url = "https://notion-kindle-api-wrapper.lilia.rocks/edit-deadline";
 	try {
 		const response = await fetch(url, {
 			method: "POST",
