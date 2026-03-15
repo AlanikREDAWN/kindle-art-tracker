@@ -1,6 +1,6 @@
 function checkPassword() {
 	// var password = localStorage.getItem("password");
-    var password = getCookie("password");
+	var password = getCookie("password");
 
 	if (password) {
 		window.location.href = "home.html";
